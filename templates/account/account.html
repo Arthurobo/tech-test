@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+	.image-container {
+		max-width: 250px;
+		height: auto;
+	}
+
+	.field-heading {
+		color: var(--secondary-text-color);
+	}
+
+	.icon-container:hover {
+		opacity: 0.3;
+		cursor: pointer;
+	}
+
+	.friends-icon {
+		color: #4287f5;
+		font-size: 40px;
+	}
+
+	.person-add-icon {
+		color: #4287f5;
+		font-size: 40px;
+	}
+
+	.card {
+		border-radius: 12px;
+	}
+</style>
+
+<div class="container-fluid" style="margin-top: 100px;">
+	<div class="d-flex flex-row justify-content-center flex-wrap align-items-start">
+
+		<div class="card profile-card m-2">
+			<div class="card-body">
+				<div class="d-flex flex-column justify-content-center p-4">
+					<div class="image-container mx-auto mb-4">
+						<img class="d-block border border-dark rounded-circle img-fluid mx-auto profile-image"
+							alt="Tech Test" id="id_profile_image" src="{{ profile_image }}">
+					</div>
+					<p class="mt-4 mb-1 field-heading">Email</p>
+					{% if is_self %}
+					<h5>{{email}}</h5>
+					{% else %}
+					{% if hide_email %}
+					<h5>**********</h5>
+					{% else %}
+					<h5>{{email}}</h5>
+					{% endif %}
+					{% endif %}
+					<h5>Phone Number: <b>{{phone_number}}</b></h5>
+					<h5>First Name: <b>{{first_name}}</b></h5>
+					<h5>Last Name: <b>{{last_name}}</b></h5>
+					<h5>Room Number: <b>{{room_number}}</b></h5>
+
+
+					<!-- If Auth user is viewing their own profile -->
+					{% if is_self %}
+					<a class="mt-4 btn btn-primary" href="{% url 'account:edit-account' user_id=id %}">Update
+						Account</a>
+					<a class="mt-4 btn btn-primary" href="{% url 'account:edit-profile-image' user_id=id %}">Update
+						Profile Image</a>
+					<a class="mt-4 btn btn-secondary"
+						href="{% url 'account:edit-user-profile-view' user_id=id %}">Update Profile</a>
+					<div class="d-flex flex-column mt-4">
+						<a class="m-auto" href="{% url 'account:password_change' %}">Change password</a>
+					</div>
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+		<div>
+			<h5 style="text-align: center;"><b>Subjects Taught</b></h5><br>
+			<h2>{{ subjects_taught }}</h2>
+
+		</div>
+	</div>
+	<div>
+
+
+	</div>
+</div>
+
+{% endblock content %}

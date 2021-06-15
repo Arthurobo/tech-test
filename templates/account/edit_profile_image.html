@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style type="text/css">
+	.image-container {
+		max-width: 250px;
+		height: auto;
+		position: relative;
+	}
+
+	.field-heading {
+		color: #737373;
+	}
+
+	#id_confirm {
+		color: green;
+	}
+
+	#id_confirm:hover {
+		opacity: 0.3;
+	}
+
+	#id_cancel:hover {
+		opacity: 0.3;
+	}
+
+	#id_cancel {
+		color: red;
+	}
+
+	.material-icons {
+		font-size: 30px;
+	}
+
+	.material-icons:hover {
+		cursor: pointer;
+	}
+</style>
+
+
+
+<div class="container-fluid" style="margin-top: 150px;">
+	<div class="row justify-content-center">
+		<div class="card profile-card">
+			<div class="card-body">
+				<div class="d-flex flex-column justify-content-center p-4">
+					<div class="mb-2" id="id_image_crop_confirm">
+					</div>
+					<form class="form-signin" method="post" enctype="multipart/form-data">{% csrf_token %}
+						{{ form.as_p }}
+
+
+						{% for field in form %}
+						<p>
+							{% for error in field.errors %}
+						<p style="color: red">{{ error }}</p>
+						{% endfor %}
+						</p>
+						{% endfor %}
+						{% if form.non_field_errors %}
+						<div style="color: red">
+							<p>{{form.non_field_errors}}</p>
+						</div>
+
+						{% endif %}
+						<button class="btn btn-primary" type="submit">Update</button>
+						
+					</form>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock content %}

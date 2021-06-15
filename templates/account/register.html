@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style type="text/css">
+
+.register-form-wrapper {
+	padding: 150px;
+  padding-bottom: 2px;
+	background-color: #434175;
+}
+  .card-signin {
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    margin: auto;
+	  /* background-color:   #96979a; */
+    background-color: #fcfcfc;
+  }
+
+  .form-signin input[type="email"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .form-signin input[type="text"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .form-signin input[type="password"] {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .traditional-btn {
+	  background-color: #1565C0;
+	  color: white;
+  }
+
+  .traditional-btn:hover {
+	  background-color: #1565C0;
+	  color: #f2f2f2;
+  }
+
+.form-wrapper {
+	margin-top: 10px;
+	margin-bottom: 100px;
+}
+
+@media only screen and (min-device-width:100px) and (max-device-width: 480px) {
+  .register-form-wrapper {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: #fcfcfc;
+}
+
+  .form-wrapper {
+	padding-top: 5px;
+	margin-top: -5px;
+	margin-bottom: 70px;
+}
+.card-signin {
+  
+  background-color: #fcfcfc;
+}
+}
+</style>
+
+<div class="container-fluid register-form-wrapper">
+  <div class="row justify-content-center form-wrapper">
+    <div class="card card-signin">
+      <div class="card-body">
+        
+
+        {% comment %}
+        <div class="d-flex flex-column pb-3 pt-5">
+          <img class="img-fluid mx-auto rounded-circle" 
+          src="{% static 'assets/img/naas_logo.jpg' %}"
+            alt="ASF Uniport" width="100" height="100">
+        </div>
+        {% endcomment %}
+        {% for field in registration_form %}
+        <p>
+          {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        </p>
+        {% endfor %}
+        {% if registration_form.non_field_errors %}
+        <div style="color: red">
+          <p>{{registration_form.non_field_errors}}</p>
+        </div>
+        {% endif %}
+        <form class="form-signin pt-5" method="post">
+          {% csrf_token %}
+          <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email Address" required
+            autofocus>
+          <input type="text" name="first_name" id="inputUsername" class="form-control" placeholder="First Name"
+            required>
+          <input type="text" name="last_name" id="inputUsername" class="form-control" placeholder="Last Name" required>
+          
+          <h6 style="font-weight: bold;">Gender:</h6>
+        <input type="radio" name="sex" value="M" checked> Male
+        <input type="radio" name="sex" value="F" checked> Female
+        <br><br>
+          
+          <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Password"
+            required>
+          <input type="password" name="password2" id="inputPassword2" class="form-control mt-2"
+            placeholder="Confirm password" required>
+          <button class="btn btn-lg traditional-btn btn-block mt-3" type="submit">Register</button>
+        </form>
+
+        <div class="d-flex flex-column my-4">
+          <p class="m-auto">Already Have an Account ?</p>
+          <a class="m-auto" href="{% url 'account:login' %}">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

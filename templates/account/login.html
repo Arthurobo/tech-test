@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style type="text/css">
+
+.login-form-wrapper {
+	padding: 150px;
+	padding-bottom: 10px;
+	background-color: #434175;
+}
+  .card-signin {
+	  width: 100%;
+	  max-width: 400px;
+	  padding: 15px;
+	  margin: auto;
+	  /* background-color:   #96979a; */
+    background-color: #fcfcfc;
+  }
+  
+  .form-signin input[type="email"] {
+    margin-bottom: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .form-signin input[type="password"] {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .traditional-btn {
+	  background-color: #1565C0;
+	  color: white;
+  }
+  .traditional-btn:hover {
+	  background-color: #1565C0;
+	  color: #f2f2f2;
+  }
+
+.form-wrapper {
+	margin-top: 10px;
+	margin-bottom: 100px;
+}
+
+@media only screen and (min-device-width:100px) and (max-device-width: 480px) {
+
+	.login-form-wrapper {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: #fcfcfc;
+}
+	.form-wrapper {
+	padding-top: 5px;
+	margin-top: -5px;
+	margin-bottom: 40px;
+}
+.form-signin {
+	margin-top: 150px;
+}
+	.card-signin {
+		margin-top: -35px;
+    background-color: #fcfcfc;
+	}
+
+	.img-div {
+		margin-top: 60px;
+	}
+}
+</style>
+
+<div class="container-fluid login-form-wrapper">
+	<div class="row justify-content-center form-wrapper">
+		<div class="card card-signin">
+		  <div class="card-body">
+			{% comment %}
+			<div class="d-flex flex-column pb-3 pt-5 img-div">
+			  <img class="img-fluid mx-auto rounded-circle" 
+			  src="{% static 'assets/img/naas_logo.jpg' %}"
+				alt="ASF Uniport" width="80" height="200">
+			</div>
+			{% endcomment %}
+
+			{% for field in login_form %}
+			<p>
+			{% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+			{% endfor %}
+			</p>
+			{% endfor %}
+			{% if login_form.non_field_errors %}
+			<div style="color: red">
+			<p>{{login_form.non_field_errors}}</p>
+			</div>
+
+			{% endif %}
+
+		    <form class="form-signin" method="post">{% csrf_token %}
+				<input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+
+				<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+				<button class="btn btn-lg btn-block mt-3 traditional-btn" type="submit">Log in</button>
+			</form>
+
+
+
+				<div class="d-flex flex-column mt-4">
+					<a class="m-auto" href="{% url 'account:pwdreset' %}">Reset password</a>
+				</div>
+				
+				<div class="d-flex flex-column my-1">
+					<p class="m-auto">Don't Have an Account ?</p>
+					<a class="m-auto" href="{% url 'account:register' %}">Sign Up</a>
+				</div>
+		  </div>
+		</div>
+		
+	</div>
+</div>
+
+
+
+
+
+
+{% endblock content %}

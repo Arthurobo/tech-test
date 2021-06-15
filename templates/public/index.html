@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="margin: 150px 5px 100px 5px;">
+    <h1>List of Teachers</h1>
+
+    {% for teacher in object_list %}
+    <div class="card m-2">
+        <a href="{{ teacher.get_absolute_url }}">
+        <h4>{{ teacher.first_name }} {{ teacher.last_name }}</h4><hr>
+    </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

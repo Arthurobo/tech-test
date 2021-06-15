@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="margin-top: 150px; padding: 10px; 50px">
+    <h1>Teachers Upload</h1>
+    <form action="" method="POST" class="ui form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+</div>
+{% endblock content %}
